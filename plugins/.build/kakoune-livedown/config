@@ -1,6 +1,4 @@
 try %{ 
-
-
  } catch %{
     echo -debug "Error while evaluating 'kakoune-livedown' configuration: %val{error}"
 

@@ -18,6 +18,15 @@ set-option global tabstop 4
 
 map -docstring "save current buffer" global user s ": w<ret>"
 
+## no more Clippy :(
+
+set-option global ui_options terminal_assistant=none
+
+## Open file in new window
+
+define-command open-in-new-window -params .. -file-completion %{ new edit "%arg{@}"}
+alias global e open-in-new-window
+
 ## load kak package manager (kak.bundle)
 
 source "%val{config}/plugins/plug.kak/rc/plug.kak"
