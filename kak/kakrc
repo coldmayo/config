@@ -1,0 +1,91 @@
+## adding line numbers
+
+add-highlighter global/ number-lines -hlcursor -relative
+
+## highlight matching braces + brackets + parenthesis + etc.
+
+add-highlighter global/ show-matching
+
+## show whitespaces
+
+add-highlighter global/ show-whitespaces
+
+## give tab a set space amount
+
+set-option global tabstop 4
+set-option global indentwidth 4
+
+## autosaving
+
+map -docstring "save current buffer" global user s ": w<ret>"
+
+## no more Clippy :(
+
+set-option global ui_options terminal_assistant=none
+
+## Open file in new window
+
+define-command open-in-new-window -params .. -file-completion %{ new edit "%arg{@}"}
+alias global e open-in-new-window
+
+## load kak package manager (kak.bundle)
+
+source "%val{config}/bundle/kak-bundle/rc/kak-bundle.kak"
+bundle-noload kak-bundle https://codeberg.org/jdugan6240/kak-bundle
+
+source "%val{config}/plugins/plug.kak/rc/plug.kak"
+plug "andreyorst/plug.kak" noload
+
+## Load my Obsidian plugin
+
+source ~/.config/kak/plugins/Obsidian-kak/main.kak do %sh{
+	cd ~/.config/kak/plugins/Obsidian-kak/ 
+    gcc -o main main.c
+}
+
+## discord presence (don't think it works)
+
+plug "uncomfyhalomacro/kakoune-discord" do %{cargo install --path . --force} %{
+	discord-presence-enable
+}
+
+## themes
+
+plug "secondary-smiles/kakoune-themes" theme config %{
+	colorscheme one-dark
+}
+
+## autopairs for braces + brackets + parenthesis + etc.
+plug "alexherbo2/auto-pairs.kak" config %{
+	enable-auto-pairs
+}
+
+## markdown veiwer using livedown
+## to use use the command livedown-start command and then in the browser open localhost at port 8642
+
+plug "delapouite/kakoune-livedown" %{}
+
+## kaktree, interactive file tree
+bundle kaktree "https://github.com/JJK96/kaktree" %{
+    hook global WinSetOption filetype=kaktree %{
+        remove-highlighter buffer/matching
+        remove-highlighter buffer/wrap
+        remove-highlighter buffer/show-whitespaces
+    }
+    kaktree-enable
+    set-option global kaktree_double_click_duration '0.5'
+    set-option global kaktree_indentation 2
+    set-option global kaktree_dir_icon_open  '▾ 📂'
+    set-option global kaktree_dir_icon_close '▸ 📁'
+    set-option global kaktree_file_icon      '⠀⠀📄'
+    set-option global kaktree_tab_open_file true
+}
+
+# This allows for easy manuvering between files in kakoune
+# Useful commands:
+# :info-buffers - Shows all of the files you have opened previously
+# :buffer - move to whatever buffer
+bundle kakoune-buffers "https://github.com/Delapouite/kakoune-buffers" %{}
+
+# Zig syntax hightlighting
+bundle zig-kak "https://github.com/eira-fransham/zig-kak" %{}
