@@ -1,0 +1,26 @@
+# Behaviour
+set smooth-scroll "true"
+set pages-per-row 1
+set scroll-step 40
+set adjust-open "best-fit"
+
+# Appearence
+set show-statusbar true
+set statusbar-h-padding 5
+set statusbar-v-padding 5
+set window-title-basename "true"
+
+# Colors
+set default-bg rgba(40,42,54,1)   # Background
+set default-fg rgba(248,248,242,1)   # Foreground
+
+set statusbar-fg rgba(40,42,54,1)   # Background
+set statusbar-bg rgb(215,135,215)   # Foreground
+
+set inputbar-bg rgba(135,175,215,1)   # Background
+set inputbar-fg rgba(40,42,54,1)   # Foreground
+
+set highlight-color rgba(135,175,215,0.3)
+set highlight-active-color rgba(215,175,135,0.4) 
+
+set notification-bg rgba(215,175,135,1)
